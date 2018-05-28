@@ -1,0 +1,31 @@
+** saida do somador completo
+**s = cin XOR a XOR b
+
+
+.SUBCKT xor_3 a b cin out vdd gnd
+*.PININFO a:I b:I cin:I out:O vdd:P gnd:G
+*.EQN out=((b * !cin * !a) + (!b * cin * !a) + (b * cin * a) + (!b * !cin * a));
+MP1 out a pu_n1 vdd modp
+MP2 out not_a pu_n3 vdd modp
+MP3 pu_n1 cin pu_n4 vdd modp
+MP4 pu_n1 not_cin pu_n5 vdd modp
+MP5 pu_n4 not_b vdd vdd modp
+MP6 pu_n5 b vdd vdd modp
+MP7 pu_n3 cin pu_n5 vdd modp
+MP8 pu_n3 not_cin pu_n4 vdd modp
+MN9 out not_a pd_n1 gnd modn
+MN10 out a pd_n3 gnd modn
+MN11 pd_n1 not_cin pd_n4 gnd modn
+MN12 pd_n1 cin pd_n5 gnd modn
+MN13 pd_n4 not_b gnd gnd modn
+MN14 pd_n5 b gnd gnd modn
+MN15 pd_n3 not_cin pd_n5 gnd modn
+MN16 pd_n3 cin pd_n4 gnd modn
+MP_inv17 not_a a vdd vdd modp
+MN_inv18 not_a a gnd gnd modn
+MP_inv19 not_b b vdd vdd modp
+MN_inv20 not_b b gnd gnd modn
+MP_inv21 not_cin cin vdd vdd modp
+MN_inv22 not_cin cin gnd gnd modn
+.ENDS xor_3
+
