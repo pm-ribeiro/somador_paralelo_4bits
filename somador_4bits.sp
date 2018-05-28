@@ -15,7 +15,7 @@ Vin3 cin 	gnd pulse 	(0 3.3 0 0.1ns 0.1ns 20.3n 40.8n)
 **subckt da saida do meio somador
 **s0 = !a*b + a*!b
 
-.SUBCKT s0 a b out vcc gnd
+.SUBCKT saida_MS a b out vcc gnd
 *.PININFO a:I b:I out:O vcc:P gnd:G
 *.EQN out=((!a * b) + (a * !b));
 MP1 out a pu_n1 vcc PMOS
@@ -30,7 +30,7 @@ MP_inv9 not_a a vcc vcc PMOS
 MN_inv10 not_a a gnd gnd NMOS
 MP_inv11 not_b b vcc vcc PMOS
 MN_inv12 not_b b gnd gnd NMOS
-.ENDS s0
+.ENDS saida_MS
 
 
 **---------------------------------------------------------------------------
@@ -38,7 +38,7 @@ MN_inv12 not_b b gnd gnd NMOS
 **c1 é o cout do meio somador
 **c1 = a*b 
 
-.SUBCKT c1 a b not_out vcc gnd
+.SUBCKT c_MS a b not_out vcc gnd
 *.PININFO a:I b:I not_out:O vcc:P gnd:G
 *.EQN not_out=!(!a + (a * !b));
 MP1 out a vcc vcc PMOS
@@ -50,15 +50,14 @@ MP_inv6 not_a a vcc vcc PMOS
 MN_inv7 not_a a gnd gnd NMOS
 MP_inv8 not_out out vcc vcc PMOS
 MN_inv9 not_out out gnd gnd NMOS
-.ENDS c1
-
+.ENDS c_MS
 
 **---------------------------------------------------------------------------
 **subckt do c_out do somador completo
 **c_out são os carry outs dos somadores completos
 **cout = a*b + a*cin + b*cin
 
-.SUBCKT c_out a b cin not_out vcc gnd
+.SUBCKT c_SC a b cin not_out vcc gnd
 *.PININFO a:I b:I cin:I not_out:O vcc:P gnd:G
 *.EQN not_out=!((!cin * !a) + (!b * a * !cin) + (!b * cin * !a));
 MP1 out a pu_n1 vcc PMOS
@@ -79,14 +78,14 @@ MP_inv15 not_cin cin vcc vcc PMOS
 MN_inv16 not_cin cin gnd gnd NMOS
 MP_inv17 not_out out vcc vcc PMOS
 MN_inv18 not_out out gnd gnd NMOS
-.ENDS c_out
+.ENDS c_SC
 
 
 **---------------------------------------------------------------------------
 ** subckt da saida do somador completo
 **s = cin XOR a XOR b
 
-.SUBCKT xor_3 a b cin out vdd gnd
+.SUBCKT saida_SC a b cin out vdd gnd
 *.PININFO a:I b:I cin:I out:O vdd:P gnd:G
 *.EQN out=((b * !cin * !a) + (!b * cin * !a) + (b * cin * a) + (!b * !cin * a));
 MP1 out a pu_n1 vdd PMOS
@@ -111,12 +110,21 @@ MP_inv19 not_b b vdd vdd PMOS
 MN_inv20 not_b b gnd gnd NMOS
 MP_inv21 not_cin cin vdd vdd PMOS
 MN_inv22 not_cin cin gnd gnd NMOS
-.ENDS xor_3
+.ENDS saida_SC
 
 
 *Xnumero entrada(s) saida(s) vcc gnd nome da celula
-X1 a b s0 vdd gnd s0
-X2 
+X1 a0 b0 s0 vdd gnd saida_MS 	**S0
+X2 a0 b0 c0 vdd gnd c_MS			**C0
+
+X3 a1 b1 c0 s1 vdd gnd saida_SC	**saida = s1 do full adder
+X4 a1 b1 c0 c1 vdd gnd c_SC 		**c1 do full adder
+
+X5 a2 b2 c1 s2 vdd gnd saida_SC	**saida = s2 do full adder
+X6 a2 b2 c1 c2 vdd gnd c_SC 		**c2 do full adder
+
+X7 a3 b3 c2 s3 vdd gnd saida_SC	**saida = s3 do full adder
+X8 a3 b3 c2 c3 vdd gnd c_SC 		**c3 do full adder
 
 **---------------------------------------------------------------------------
 ** só copiei do inversor de exemplo do ava
