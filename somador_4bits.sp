@@ -18,18 +18,18 @@ Vin3 cin 	gnd pulse 	(0 3.3 0 0.1ns 0.1ns 20.3n 40.8n)
 .SUBCKT s0 a b out vcc gnd
 *.PININFO a:I b:I out:O vcc:P gnd:G
 *.EQN out=((!a * b) + (a * !b));
-MP1 out a pu_n1 vcc modp
-MP2 out not_a pu_n3 vcc modp
-MP3 pu_n1 not_b vcc vcc modp
-MP4 pu_n3 b vcc vcc modp
-MN5 out not_a pd_n1 gnd modn
-MN6 out a pd_n3 gnd modn
-MN7 pd_n1 not_b gnd gnd modn
-MN8 pd_n3 b gnd gnd modn
-MP_inv9 not_a a vcc vcc modp
-MN_inv10 not_a a gnd gnd modn
-MP_inv11 not_b b vcc vcc modp
-MN_inv12 not_b b gnd gnd modn
+MP1 out a pu_n1 vcc PMOS
+MP2 out not_a pu_n3 vcc PMOS
+MP3 pu_n1 not_b vcc vcc PMOS
+MP4 pu_n3 b vcc vcc PMOS
+MN5 out not_a pd_n1 gnd NMOS
+MN6 out a pd_n3 gnd NMOS
+MN7 pd_n1 not_b gnd gnd NMOS
+MN8 pd_n3 b gnd gnd NMOS
+MP_inv9 not_a a vcc vcc PMOS
+MN_inv10 not_a a gnd gnd NMOS
+MP_inv11 not_b b vcc vcc PMOS
+MN_inv12 not_b b gnd gnd NMOS
 .ENDS s0
 
 
@@ -41,15 +41,15 @@ MN_inv12 not_b b gnd gnd modn
 .SUBCKT c1 a b not_out vcc gnd
 *.PININFO a:I b:I not_out:O vcc:P gnd:G
 *.EQN not_out=!(!a + (a * !b));
-MP1 out a vcc vcc modp
-MP2 out not_a pu_n3 vcc modp
-MP3 pu_n3 b vcc vcc modp
-MN4 out a pd_n1 gnd modn
-MN5 pd_n1 b gnd gnd modn
-MP_inv6 not_a a vcc vcc modp
-MN_inv7 not_a a gnd gnd modn
-MP_inv8 not_out out vcc vcc modp
-MN_inv9 not_out out gnd gnd modn
+MP1 out a vcc vcc PMOS
+MP2 out not_a pu_n3 vcc PMOS
+MP3 pu_n3 b vcc vcc PMOS
+MN4 out a pd_n1 gnd NMOS
+MN5 pd_n1 b gnd gnd NMOS
+MP_inv6 not_a a vcc vcc PMOS
+MN_inv7 not_a a gnd gnd NMOS
+MP_inv8 not_out out vcc vcc PMOS
+MN_inv9 not_out out gnd gnd NMOS
 .ENDS c1
 
 
@@ -61,24 +61,24 @@ MN_inv9 not_out out gnd gnd modn
 .SUBCKT c_out a b cin not_out vcc gnd
 *.PININFO a:I b:I cin:I not_out:O vcc:P gnd:G
 *.EQN not_out=!((!cin * !a) + (!b * a * !cin) + (!b * cin * !a));
-MP1 out a pu_n1 vcc modp
-MP2 out not_a pu_n3 vcc modp
-MP3 pu_n1 cin vcc vcc modp
-MP4 pu_n1 not_cin pu_n5 vcc modp
-MP5 pu_n5 b vcc vcc modp
-MP6 pu_n3 cin pu_n5 vcc modp
-MN7 out not_a pd_n1 gnd modn
-MN8 out a pd_n3 gnd modn
-MN9 pd_n1 cin pd_n4 gnd modn
-MN10 pd_n4 b gnd gnd modn
-MN11 pd_n3 not_cin pd_n4 gnd modn
-MN12 pd_n3 cin gnd gnd modn
-MP_inv13 not_a a vcc vcc modp
-MN_inv14 not_a a gnd gnd modn
-MP_inv15 not_cin cin vcc vcc modp
-MN_inv16 not_cin cin gnd gnd modn
-MP_inv17 not_out out vcc vcc modp
-MN_inv18 not_out out gnd gnd modn
+MP1 out a pu_n1 vcc PMOS
+MP2 out not_a pu_n3 vcc PMOS
+MP3 pu_n1 cin vcc vcc PMOS
+MP4 pu_n1 not_cin pu_n5 vcc PMOS
+MP5 pu_n5 b vcc vcc PMOS
+MP6 pu_n3 cin pu_n5 vcc PMOS
+MN7 out not_a pd_n1 gnd NMOS
+MN8 out a pd_n3 gnd NMOS
+MN9 pd_n1 cin pd_n4 gnd NMOS
+MN10 pd_n4 b gnd gnd NMOS
+MN11 pd_n3 not_cin pd_n4 gnd NMOS
+MN12 pd_n3 cin gnd gnd NMOS
+MP_inv13 not_a a vcc vcc PMOS
+MN_inv14 not_a a gnd gnd NMOS
+MP_inv15 not_cin cin vcc vcc PMOS
+MN_inv16 not_cin cin gnd gnd NMOS
+MP_inv17 not_out out vcc vcc PMOS
+MN_inv18 not_out out gnd gnd NMOS
 .ENDS c_out
 
 
@@ -89,28 +89,28 @@ MN_inv18 not_out out gnd gnd modn
 .SUBCKT xor_3 a b cin out vdd gnd
 *.PININFO a:I b:I cin:I out:O vdd:P gnd:G
 *.EQN out=((b * !cin * !a) + (!b * cin * !a) + (b * cin * a) + (!b * !cin * a));
-MP1 out a pu_n1 vdd modp
-MP2 out not_a pu_n3 vdd modp
-MP3 pu_n1 cin pu_n4 vdd modp
-MP4 pu_n1 not_cin pu_n5 vdd modp
-MP5 pu_n4 not_b vdd vdd modp
-MP6 pu_n5 b vdd vdd modp
-MP7 pu_n3 cin pu_n5 vdd modp
-MP8 pu_n3 not_cin pu_n4 vdd modp
-MN9 out not_a pd_n1 gnd modn
-MN10 out a pd_n3 gnd modn
-MN11 pd_n1 not_cin pd_n4 gnd modn
-MN12 pd_n1 cin pd_n5 gnd modn
-MN13 pd_n4 not_b gnd gnd modn
-MN14 pd_n5 b gnd gnd modn
-MN15 pd_n3 not_cin pd_n5 gnd modn
-MN16 pd_n3 cin pd_n4 gnd modn
-MP_inv17 not_a a vdd vdd modp
-MN_inv18 not_a a gnd gnd modn
-MP_inv19 not_b b vdd vdd modp
-MN_inv20 not_b b gnd gnd modn
-MP_inv21 not_cin cin vdd vdd modp
-MN_inv22 not_cin cin gnd gnd modn
+MP1 out a pu_n1 vdd PMOS
+MP2 out not_a pu_n3 vdd PMOS
+MP3 pu_n1 cin pu_n4 vdd PMOS
+MP4 pu_n1 not_cin pu_n5 vdd PMOS
+MP5 pu_n4 not_b vdd vdd PMOS
+MP6 pu_n5 b vdd vdd PMOS
+MP7 pu_n3 cin pu_n5 vdd PMOS
+MP8 pu_n3 not_cin pu_n4 vdd PMOS
+MN9 out not_a pd_n1 gnd NMOS
+MN10 out a pd_n3 gnd NMOS
+MN11 pd_n1 not_cin pd_n4 gnd NMOS
+MN12 pd_n1 cin pd_n5 gnd NMOS
+MN13 pd_n4 not_b gnd gnd NMOS
+MN14 pd_n5 b gnd gnd NMOS
+MN15 pd_n3 not_cin pd_n5 gnd NMOS
+MN16 pd_n3 cin pd_n4 gnd NMOS
+MP_inv17 not_a a vdd vdd PMOS
+MN_inv18 not_a a gnd gnd NMOS
+MP_inv19 not_b b vdd vdd PMOS
+MN_inv20 not_b b gnd gnd NMOS
+MP_inv21 not_cin cin vdd vdd PMOS
+MN_inv22 not_cin cin gnd gnd NMOS
 .ENDS xor_3
 
 
