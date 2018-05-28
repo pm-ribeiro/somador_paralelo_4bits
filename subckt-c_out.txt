@@ -1,0 +1,25 @@
+**c_out são os carry outs dos somadores completos
+**cout = a*b + a*cin + b*cin
+
+.SUBCKT c_out a b cin not_out vcc gnd
+*.PININFO a:I b:I cin:I not_out:O vcc:P gnd:G
+*.EQN not_out=!((!cin * !a) + (!b * a * !cin) + (!b * cin * !a));
+MP1 out a pu_n1 vcc modp
+MP2 out not_a pu_n3 vcc modp
+MP3 pu_n1 cin vcc vcc modp
+MP4 pu_n1 not_cin pu_n5 vcc modp
+MP5 pu_n5 b vcc vcc modp
+MP6 pu_n3 cin pu_n5 vcc modp
+MN7 out not_a pd_n1 gnd modn
+MN8 out a pd_n3 gnd modn
+MN9 pd_n1 cin pd_n4 gnd modn
+MN10 pd_n4 b gnd gnd modn
+MN11 pd_n3 not_cin pd_n4 gnd modn
+MN12 pd_n3 cin gnd gnd modn
+MP_inv13 not_a a vcc vcc modp
+MN_inv14 not_a a gnd gnd modn
+MP_inv15 not_cin cin vcc vcc modp
+MN_inv16 not_cin cin gnd gnd modn
+MP_inv17 not_out out vcc vcc modp
+MN_inv18 not_out out gnd gnd modn
+.ENDS c_out

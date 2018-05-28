@@ -1,0 +1,21 @@
+**s0 é a saida do meio somador
+**s0 = !a*b + a*!b
+
+
+.SUBCKT s0 a b out vcc gnd
+*.PININFO a:I b:I out:O vcc:P gnd:G
+*.EQN out=((!a * b) + (a * !b));
+MP1 out a pu_n1 vcc modp
+MP2 out not_a pu_n3 vcc modp
+MP3 pu_n1 not_b vcc vcc modp
+MP4 pu_n3 b vcc vcc modp
+MN5 out not_a pd_n1 gnd modn
+MN6 out a pd_n3 gnd modn
+MN7 pd_n1 not_b gnd gnd modn
+MN8 pd_n3 b gnd gnd modn
+MP_inv9 not_a a vcc vcc modp
+MN_inv10 not_a a gnd gnd modn
+MP_inv11 not_b b vcc vcc modp
+MN_inv12 not_b b gnd gnd modn
+.ENDS s0
+

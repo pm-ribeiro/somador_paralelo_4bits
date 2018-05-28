@@ -1,0 +1,16 @@
+**c1 é o cout do meio somador
+**c1 = a*b 
+
+.SUBCKT c1 a b not_out vcc gnd
+*.PININFO a:I b:I not_out:O vcc:P gnd:G
+*.EQN not_out=!(!a + (a * !b));
+MP1 out a vcc vcc modp
+MP2 out not_a pu_n3 vcc modp
+MP3 pu_n3 b vcc vcc modp
+MN4 out a pd_n1 gnd modn
+MN5 pd_n1 b gnd gnd modn
+MP_inv6 not_a a vcc vcc modp
+MN_inv7 not_a a gnd gnd modn
+MP_inv8 not_out out vcc vcc modp
+MN_inv9 not_out out gnd gnd modn
+.ENDS c1

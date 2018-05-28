@@ -1,0 +1,6 @@
+s0 = !a*b + a*!b
+c1 = a*b 
+cout = a*b + a*cin + b*cin
+
+ainda não fiz no switchcraft
+s = cin XOR a XOR b
