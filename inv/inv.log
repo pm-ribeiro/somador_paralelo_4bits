@@ -1,0 +1,47 @@
+T-Spice - Tanner SPICE
+Version 16.01
+Network license
+Product Release ID: T-Spice Win64 16.01.20130407.21:15:40
+Copyright © 1988-2013 Tanner EDA
+
+	Parsing "D:\Biblioteca\Documentos\Git\t1_cci\inv.spc"
+	Including "D:\Biblioteca\Documentos\Git\t1_cci\NMOS_VTG.inc"
+	Including "D:\Biblioteca\Documentos\Git\t1_cci\PMOS_VTG.inc"
+
+Start of inv.spc
+Loaded BSIM4v450 model library, Berkeley BSIM4 v4.5.0
+
+	Opening simulation database "D:\Biblioteca\Documentos\Git\t1_cci\inv.tsim"
+
+General options:
+        threads = 1
+
+ Device and node counts:
+              MOSFETs -       2
+    MOSFET geometries -       2
+           Capacitors -       1
+      Voltage sources -       2
+          Subcircuits -       1
+    Model Definitions -       2
+      Computed Models -       2
+    Independent nodes -       9
+       Boundary nodes -       3
+          Total nodes -      12
+
+Measure information will be written to file "D:\Biblioteca\Documentos\Git\t1_cci\inv\inv.measure"
+
+Measurement result summary
+   pHL_inv         =   13.4110p      
+   pLH_inv         =   13.2468p      
+   consumoCaso1_HL =    8.8219n      
+   consumoCaso1_LH =   -1.8766u      
+
+Parsing                      7.67 seconds
+Setup                        2.88 seconds
+DC operating point           0.06 seconds
+Transient Analysis           2.96 seconds
+Overhead                     1.81 seconds
+-----------------------------------------
+Total                       15.38 seconds
+
+Simulation completed
