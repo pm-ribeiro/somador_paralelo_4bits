@@ -2,9 +2,10 @@
 .include NMOS_VTG.inc
 
 .include PMOS_VTG.inc
-
-V0 gnd 0 DC 0V
-V1 vdd 0 DC 3.3V
+*
+V0  gnd 0 DC 0V
+vdd vdd 0 dc 1.0
+*vin1 in 	0 pwl (0N 	0	2N 	0		2.012N	1	4N		1	4.012N	0)
 
 * entradas -> Não sei se está correto
 Vin1 a 		gnd pulse 	(0 3.3 0 0.1ns 0.1ns 5n 10.2n)
@@ -115,7 +116,7 @@ MN_inv22 not_cin cin gnd gnd 		NMOS 	w='sumWn' 	l='length'
 
 * A = 0111 , B = 0100
 *Xnumero entrada(s) saida(s) vcc gnd nome da celula
-X1 1 0 s0 vdd gnd saida_MS 		**S0
+X1 1 0 s0 vdd gnd saida_MS 	**S0
 X2 1 0 c0 vdd gnd c_MS			**C0
 
 X3 1 0 c0 s1 vdd gnd saida_SC	**saida = s1 do full adder
@@ -146,4 +147,5 @@ X8 0 0 c2 c3 vdd gnd c_SC 		**c3 do full adder
 .param sumWp = '0.1u * 1.5'
 .param sumWn = '0.1u'
 
-.print v(in) v(out) i(vdd)
+*saidas e input
+.print	v(vdd) v(s0) v(s1) v(s2) v(s3) 
