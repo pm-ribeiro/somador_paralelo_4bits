@@ -8,9 +8,9 @@ vdd vdd 0 dc 1.0
 *vin1 in 	0 pwl (0N 	0	2N 	0		2.012N	1	4N		1	4.012N	0)
 
 * entradas -> Não sei se está correto
-Vin1 a 		gnd pulse 	(0 3.3 0 0.1ns 0.1ns 5n 10.2n)
-Vin2 b 		gnd pulse 	(0 3.3 0 0.1ns 0.1ns 10.1n 20.4n)
-Vin3 cin 	gnd pulse 	(0 3.3 0 0.1ns 0.1ns 20.3n 40.8n)
+Vin1 a0 		gnd pulse 	(0 3.3 0 0.1ns 0.1ns 5n 10.2n)
+Vin2 b0 		gnd pulse 	(0 3.3 0 0.1ns 0.1ns 10.1n 20.4n)
+*Vin3 cin 	gnd pulse 	(0 3.3 0 0.1ns 0.1ns 20.3n 40.8n)
 
 
 **---------------------------------------------------------------------------
@@ -116,17 +116,17 @@ MN_inv22 not_cin cin gnd gnd 		NMOS 	w='sumWn' 	l='length'
 
 * A = 0111 , B = 0100
 *Xnumero entrada(s) saida(s) vcc gnd nome da celula
-X1 1 0 s0 vdd gnd saida_MS 	**S0
-X2 1 0 c0 vdd gnd c_MS			**C0
+X1 a0 b0 s0 vdd gnd saida_MS 	**S0
+X2 a0 b0 c0 vdd gnd c_MS			**C0
 
-X3 1 0 c0 s1 vdd gnd saida_SC	**saida = s1 do full adder
-X4 1 0 c0 c1 vdd gnd c_SC 		**c1 do full adder
+X3 a1 b1 c0 s1 vdd gnd saida_SC	**saida = s1 do full adder
+X4 a1 b1 c0 c1 vdd gnd c_SC 		**c1 do full adder
 
-X5 1 1 c1 s2 vdd gnd saida_SC	**saida = s2 do full adder
-X6 1 1 c1 c2 vdd gnd c_SC 		**c2 do full adder
+X5 a2 b2 c1 s2 vdd gnd saida_SC	**saida = s2 do full adder
+X6 a2 b2 c1 c2 vdd gnd c_SC 		**c2 do full adder
 
-X7 0 0 c2 s3 vdd gnd saida_SC	**saida = s3 do full adder
-X8 0 0 c2 c3 vdd gnd c_SC 		**c3 do full adder
+X7 a3 b3 c2 s3 vdd gnd saida_SC	**saida = s3 do full adder
+X8 a3 b3 c2 c3 vdd gnd c_SC 		**c3 do full adder
 
 **---------------------------------------------------------------------------
 ** só copiei do inversor de exemplo do ava, tá mt errado =D
@@ -147,5 +147,5 @@ X8 0 0 c2 c3 vdd gnd c_SC 		**c3 do full adder
 .param sumWp = '0.1u * 1.5'
 .param sumWn = '0.1u'
 
-*saidas e input
-.print	v(vdd) v(s0) v(s1) v(s2) v(s3) 
+*saidas e i=input
+.print	i(vdd) v(s0)
