@@ -128,7 +128,7 @@ X7 0 0 c2 s3 vdd gnd saida_SC	**saida = s3 do full adder
 X8 0 0 c2 c3 vdd gnd c_SC 		**c3 do full adder
 
 **---------------------------------------------------------------------------
-** só copiei do inversor de exemplo do ava
+** só copiei do inversor de exemplo do ava, tá mt errado =D
 .tran 1ps 8n
 
 .measure tran pHL_inv 	trig v(in)  	val=0.5 		rise = 1 
@@ -137,8 +137,8 @@ X8 0 0 c2 c3 vdd gnd c_SC 		**c3 do full adder
 .measure tran pLH_inv 	trig v(in) 	 	val=0.5 		fall = 1 
 +                    	targ v(out) 	val=0.5     rise = 1
 
-.measure tran consumoCaso1_HL integ 'p(vcc)*(3-1.1)' from=1.1N to=3N
-.measure tran consumoCaso1_LH integ 'p(vcc)*(5-3.1)' from=3.1N to=5N
+.measure tran consumoCaso1_HL integ 'p(vdd)*(3-1.1)' from=1.1N to=3N
+.measure tran consumoCaso1_LH integ 'p(vdd)*(5-3.1)' from=3.1N to=5N
 *.measure tran consumoCaso1_HL integ 'p(vcc)*(fimIntervJan1-inicioIntervJan1)' from=3.1N to=5N
 
 .param length = '50n'
@@ -146,4 +146,4 @@ X8 0 0 c2 c3 vdd gnd c_SC 		**c3 do full adder
 .param sumWp = '0.1u * 1.5'
 .param sumWn = '0.1u'
 
-.print v(in) v(out) i(vcc)
+.print v(in) v(out) i(vdd)
