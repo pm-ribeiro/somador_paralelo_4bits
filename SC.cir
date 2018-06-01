@@ -1,0 +1,104 @@
+Somador Completo - Concepcao de Circuitos Integrados
+
+
+* Asterisco indica um COMENTARIO
+
+
+** Modelo dos transistores
+.include ami_035u.mod
+
+
+** Fonte de alimentação VDD
+** Vnome nó+ nó- valor
+VDD 1 0 3.3V
+VGND GND 0 0V
+
+
+** Fonte de entrada
+** Vnome nó+ nó- PULSE(V1 V2 TD TR TF PW PER)
+Vin A 0 PULSE(0 3.3 0 0.1nS 0.1ns 1ns 2.2ns)
+Vin2 B 0 PULSE(0 3.3 0 0.1nS 0.1ns 2.1ns 4.4ns)
+Vin3 C 0 PULSE(0 3.3 0 0.1nS 0.1ns 4.2ns 8.8ns)
+
+** Formato de chamada de um transistor MOSFET
+** Mnome nó_dreno nó_gate nó_fonte nó_bulk tipo W= L=
+.subckt and2 IN IN2 S1 1 GND
+M1 OUT IN 1 1 CMOSP W=200u L=0.3u
+M2 OUT IN2 1 1 CMOSP W=200u L=0.3u
+M3 OUT IN Y 0 CMOSN W=120u L=0.3u
+M4 Y IN2 0 0 CMOSN W=120u L=0.3u
+
+M5 S1 OUT 1 1 CMOSP W=200u L=0.3u
+M6 0 OUT S1 0 CMOSN W=120u L=0.3u
+.ends
+
+.subckt or3 A B C OUT 1 GND
+M1 ADBF A 1 1 CMOSP W=200u L=0.3u
+M2 BDCF B ADBF 1 CMOSP W=200u L=0.3u
+M3 OUT C BDCF 1 CMOSP W=200u L=0.3u
+
+M4 0 A OUT 0 CMOSN W=120u L=0.3u
+M5 0 B OUT 0 CMOSN W=120u L=0.3u
+M6 0 C OUT 0 CMOSN W=120u L=0.3u
+
+**M7 S1 OUT 1 1 CMOSP W=200u L=0.3u
+**M8 0 OUT S1 0 CMOSN W=120u L=0.3u
+.ends
+
+.SUBCKT XOR2 A B SF 1 GND
+**inverte a
+M7 AN A 1 1 CMOSP W=500u L=0.3u
+M8 0 A AN 0 CMOSN W=250u L=0.3u
+
+**inverte b
+M9 BN B 1 1 CMOSP W=500u L=0.3u
+M10 0 B BN 0 CMOSN W=250u L=0.3u
+
+**and a e b
+X1 AN B S1 1 0 and2
+X2 A BN S2 1 0 and2
+
+**or final
+M11 ADBF S1 1 1 CMOSP W=500u L=0.3u
+M12 OUT S2 ADBF 1 CMOSP W=500u L=0.3u
+
+M14 0 S1 OUT 0 CMOSN W=250u L=0.3u
+M15 0 S2 OUT 0 CMOSN W=250u L=0.3u
+
+**inversor
+M17 SF OUT 1 1 CMOSP W=500u L=0.3u
+M18 0 OUT SF 0 CMOSN W=250u L=0.3u
+.ENDS
+.SUBCKT INV A SF 1 GND
+M17 SF A 1 1 CMOSP W=500u L=0.3u
+M18 0 A SF 0 CMOSN W=250u L=0.3u
+.ENDS
+**XOR3
+X1 A B SM 1 0 XOR2
+X2 SM C SOMA 1 0 XOR2
+**Carry
+X3 A B S1 1 0 and2
+X4 A C S2 1 0 and2
+X5 B C S3 1 0 and2
+X6 S1 S2 S3 NOTCARRY 1 0 or3
+X7 NOTCARRY CARRY 1 0 INV
+
+* CAPACITOR DE SAIDA
+** Cnome  nó+ nó- valor
+C1 SOMA 0 0.1pF
+C2 CARRY 0 0.1pF
+
+
+** Analise do transiente
+** .tran passo tempo_total
+.tran 0.001ns 10ns
+
+
+** Mostra o grafico
+.probe
+
+
+** Fim da descricao
+.end
+
+
