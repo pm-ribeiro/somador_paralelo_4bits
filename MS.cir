@@ -1,0 +1,78 @@
+Meio Somador - Concepcao de Circuitos Integrados
+
+
+* Asterisco indica um COMENTARIO
+
+
+** Modelo dos transistores
+.include ami_035u.mod
+
+
+** Fonte de alimentação VDD
+** Vnome nó+ nó- valor
+
+VDD 1 0 3.3V
+VGND gnd 0 0V
+
+** Fonte de entrada
+** Vnome nó+ nó- PULSE(V1 V2 TD TR TF PW PER)
+Vin A 0 PULSE(0 3.3 0 0.1nS 0.1ns 1.0ns 2.2ns)
+Vin2 B 0 PULSE(0 3.3 0 0.1nS 0.1ns 2.1ns 4.4ns)
+
+** Formato de chamada de um transistor MOSFET
+** Mnome nó_dreno nó_gate nó_fonte nó_bulk tipo W= L=
+.subckt and2 IN IN2 S1 1 gnd
+M1 OUT IN 1 1 CMOSP W=500u L=0.3u
+M2 OUT IN2 1 1 CMOSP W=500u L=0.3u
+M3 OUT IN Y 0 CMOSN W=250u L=0.3u
+M4 Y IN2 0 0 CMOSN W=250u L=0.3u
+
+M5 S1 OUT 1 1 CMOSP W=500u L=0.3u
+M6 0 OUT S1 0 CMOSN W=250u L=0.3u
+.ends
+
+.SUBCKT XOR2 A B SF 1 GND
+**inverte a
+M7 AN A 1 1 CMOSP W=500u L=0.3u
+M8 0 A AN 0 CMOSN W=250u L=0.3u
+
+**inverte b
+M9 BN B 1 1 CMOSP W=500u L=0.3u
+M10 0 B BN 0 CMOSN W=250u L=0.3u
+
+**and a e b
+X1 AN B S1 1 0 and2
+X2 A BN S2 1 0 and2
+
+**or final
+M11 ADBF S1 1 1 CMOSP W=500u L=0.3u
+M12 OUT S2 ADBF 1 CMOSP W=500u L=0.3u
+
+M14 0 S1 OUT 0 CMOSN W=250u L=0.3u
+M15 0 S2 OUT 0 CMOSN W=250u L=0.3u
+
+**inversor
+M17 SF OUT 1 1 CMOSP W=500u L=0.3u
+M18 0 OUT SF 0 CMOSN W=250u L=0.3u
+.ENDS
+
+X1 A B SOMA 1 0 XOR2
+X2 A B CARRY 1 0 and2
+* CAPACITOR DE SAIDA
+** Cnome  nó+ nó- valor
+C1 SOMA 0 5pF
+C2 CARRY 0 5pF
+
+** Analise do transiente
+** .tran passo tempo_total
+.tran 0.001ns 10ns
+
+
+** Mostra o grafico
+.probe
+
+
+** Fim da descricao
+.end
+
+
