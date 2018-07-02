@@ -36,12 +36,12 @@ Measurement result summary
    consumoCaso1_HL =    8.8219n      
    consumoCaso1_LH =   -1.8766u      
 
-Parsing                      7.67 seconds
-Setup                        2.88 seconds
-DC operating point           0.06 seconds
-Transient Analysis           2.96 seconds
-Overhead                     1.81 seconds
+Parsing                      0.00 seconds
+Setup                        0.00 seconds
+DC operating point           0.00 seconds
+Transient Analysis           0.47 seconds
+Overhead                     1.03 seconds
 -----------------------------------------
-Total                       15.38 seconds
+Total                        1.50 seconds
 
 Simulation completed

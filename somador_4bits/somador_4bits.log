@@ -1,0 +1,70 @@
+T-Spice - Tanner SPICE
+Version 16.01
+Network license
+Product Release ID: T-Spice Win64 16.01.20130407.21:15:40
+Copyright © 1988-2013 Tanner EDA
+
+	Parsing "D:\Biblioteca\Documentos\Git\t1_cci\somador_4bits.sp"
+	Including "D:\Biblioteca\Documentos\Git\t1_cci\NMOS_VTG.inc"
+	Including "D:\Biblioteca\Documentos\Git\t1_cci\PMOS_VTG.inc"
+
+Start of somador_4bits.sp
+Loaded BSIM4v450 model library, Berkeley BSIM4 v4.5.0
+Warning : "somador_4bits.sp" line 6 All terminal nodes of V0 are equal, and the device will be ignored.
+
+	Opening simulation database "D:\Biblioteca\Documentos\Git\t1_cci\somador_4bits.tsim"
+Warning : "somador_4bits.sp" line 146 .measure pHL_inv command contains an invalid plot item and will be ignored.
+        : Unknown term V(in)
+Warning : "somador_4bits.sp" line 149 .measure pLH_inv command contains an invalid plot item and will be ignored.
+        : Unknown term V(in)
+Warning : Node Va0 is only attached to FET gate terminals; voltage is undefined
+Warning : Node Vb0 is only attached to FET gate terminals; voltage is undefined
+Warning : Node Va1 is only attached to FET gate terminals; voltage is undefined
+Warning : Node Vb1 is only attached to FET gate terminals; voltage is undefined
+Warning : Node Va2 is only attached to FET gate terminals; voltage is undefined
+
+Warning : Disabling printout of duplicate warning messages.
+        : 	Use '.options maxmsg=0' to view all warnings,
+        : 	or increase maxmsg from 5 to view more messages.
+
+Warning : "somador_4bits.sp" line 16 Power supply node a0 is singularly attached to Va0, and will be terminated with a Gmin conductance
+Warning : "somador_4bits.sp" line 17 Power supply node a1 is singularly attached to Va1, and will be terminated with a Gmin conductance
+Warning : "somador_4bits.sp" line 18 Power supply node a2 is singularly attached to Va2, and will be terminated with a Gmin conductance
+Warning : "somador_4bits.sp" line 19 Power supply node a3 is singularly attached to Va3, and will be terminated with a Gmin conductance
+Warning : "somador_4bits.sp" line 22 Power supply node b0 is singularly attached to Vb0, and will be terminated with a Gmin conductance
+
+General options:
+        threads = 2
+
+ Device and node counts:
+              MOSFETs -     141
+    MOSFET geometries -       2
+      Voltage sources -      10
+          Subcircuits -       8
+    Model Definitions -       2
+      Computed Models -       2
+    Independent nodes -     650
+       Boundary nodes -      10
+          Total nodes -     660
+*** 14 WARNING MESSAGES GENERATED DURING SETUP
+
+Warning : "somador_4bits.sp" line 146 .measure pHL_inv command contains an invalid plot item and will be ignored.
+        : Unknown term V(in)
+Warning : "somador_4bits.sp" line 149 .measure pLH_inv command contains an invalid plot item and will be ignored.
+        : Unknown term V(in)
+
+Measure information will be written to file "D:\Biblioteca\Documentos\Git\t1_cci\somador_4bits\somador_4bits.measure"
+
+Measurement result summary
+   consumoCaso1_HL = -427.1527u      
+   consumoCaso1_LH = -427.1527u      
+
+Parsing                      0.01 seconds
+Setup                        0.05 seconds
+DC operating point           0.32 seconds
+Transient Analysis           4.84 seconds
+Overhead                     1.04 seconds
+-----------------------------------------
+Total                        6.27 seconds
+
+Simulation completed	with  16 Warnings
