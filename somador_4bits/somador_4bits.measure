@@ -1,5 +1,13 @@
 
 Measurement Results
-   consumoCaso1_HL = -427.1527u      
-   consumoCaso1_LH = -427.1527u      
+   pHL_s0          =    2.1347n      
+   pLH_s0          =   -2.0666n      
+   pHL_s1          =    2.1350n      
+   pLH_s1          =   -2.0587n      
+   pHL_s2          =       not found
+   pLH_s2          =       not found
+   pHL_s3          =    2.1982n      
+   pLH_s3          =   -1.9811n      
+   consumoCaso1_HL =  -13.2118u      
+   consumoCaso1_LH =  -12.3909u      
 
